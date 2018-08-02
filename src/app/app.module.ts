@@ -8,7 +8,7 @@ import { APP_ROUTES } from './app.routes';
 import { PagesModule } from './pages/pages.module';
 
 // TODO Temporal
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Servicios
 import { ServiceModule } from './services/service.module';
@@ -20,7 +20,14 @@ import { RegisterComponent } from './login/register.component';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent],
-  imports: [BrowserModule, APP_ROUTES, PagesModule, FormsModule, ServiceModule],
+  imports: [
+    BrowserModule,
+    APP_ROUTES,
+    PagesModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ServiceModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
