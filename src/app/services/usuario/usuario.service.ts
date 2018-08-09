@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ServiceModule } from '../service.module';
 import { Usuario } from '../../models/usuario.model';
 import { HttpClient } from '@angular/common/http';
-import { URL_SERVICIOS } from '../../config/config';
+import { URL_SERVICIOS, LIMIT_GET } from '../../config/config';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
@@ -31,7 +31,7 @@ export class UsuarioService {
     this.token = token;
   }
 
-  private cargarStorage() {
+  cargarStorage() {
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
@@ -98,8 +98,7 @@ export class UsuarioService {
 
     return this.http.put(url, usuario).pipe(
       map((resp: any) => {
-
-        if(usuario._id === this.usuario._id) {
+        if (usuario._id === this.usuario._id) {
           const usuarioDB = resp.usuario;
           this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
         }
@@ -130,7 +129,7 @@ export class UsuarioService {
   }
 
   cargarUsuarios(desde: number = 0) {
-    const url = URL_SERVICIOS + `/usuario?desde=${desde}`;
+    const url = URL_SERVICIOS + `/usuario?desde=${desde}&limit=${LIMIT_GET}`;
 
     return this.http.get(url);
   }
@@ -144,12 +143,15 @@ export class UsuarioService {
   borrarUsuario(id: string) {
     const url = URL_SERVICIOS + `/usuario/${id}?token=${this.token}`;
 
-    return this.http.delete(url)
-    .pipe(
+    return this.http.delete(url).pipe(
       map(resp => {
-        swal('Usuario borrado', 'El usuario ha sido eliminado correctamente', 'success');
+        swal(
+          'Usuario borrado',
+          'El usuario ha sido eliminado correctamente',
+          'success'
+        );
         return true;
       })
-    )
+    );
   }
 }

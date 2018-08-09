@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { UsuarioService } from '../../services/service.index';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
+import { LIMIT_GET } from '../../config/config';
 
 declare var swal: any;
 
@@ -13,6 +14,7 @@ declare var swal: any;
 export class UsuariosComponent implements OnInit {
   usuarios: Usuario[] = [];
   desde: number = 0;
+  limit_desde = LIMIT_GET;
 
   totalRegistros: number = 0;
   paginas: any[] = [];
@@ -26,7 +28,11 @@ export class UsuariosComponent implements OnInit {
   private calcularPaginas() {
     let cont = 0;
     this.paginas = new Array();
-    for (let i = 0; i < Math.ceil(this.totalRegistros / 5); i++) {
+    for (
+      let i = 0;
+      i < Math.ceil(this.totalRegistros / this.limit_desde);
+      i++
+    ) {
       const pagina = {
         numero: i + 1,
         desde: cont,
@@ -34,7 +40,7 @@ export class UsuariosComponent implements OnInit {
       };
 
       this.paginas.push(pagina);
-      cont += 5;
+      cont += this.limit_desde;
     }
   }
 
@@ -149,8 +155,11 @@ export class UsuariosComponent implements OnInit {
           .borrarUsuario(usuario._id)
           .subscribe((borrado: boolean) => {
             // console.log(borrado);
-            if (this.desde >= 5 && this.totalRegistros - this.desde === 1) {
-              this.desde -= 5;
+            if (
+              this.desde >= this.limit_desde &&
+              this.totalRegistros - this.desde === 1
+            ) {
+              this.desde -= this.limit_desde;
             }
 
             this.cargarUsuarios();
