@@ -3,6 +3,7 @@ import { Usuario } from '../../models/usuario.model';
 import { UsuarioService } from '../../services/service.index';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 import { LIMIT_GET } from '../../config/config';
+import { ActivatedRoute } from '@angular/router';
 
 declare var swal: any;
 
@@ -22,6 +23,7 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private _usuario: UsuarioService,
+    private route: ActivatedRoute,
     public _modalUpload: ModalUploadService
   ) {}
 
@@ -45,7 +47,19 @@ export class UsuariosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cargarUsuarios();
+    this.route.params.subscribe(params => {
+      const termino = params['termino'];
+      if (termino) {
+        const input: any = document.getElementById('inputUsuario');
+        if (input) {
+          input.value = termino;
+        }
+        this.buscarUsuario(termino);
+      } else {
+        this.cargarUsuarios();
+      }
+    });
+
     this._modalUpload.notificacion.subscribe(resp => this.cargarUsuarios());
   }
 

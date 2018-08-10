@@ -1,5 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 
+// Guards
+import { LoginGuardGuard, AdminGuard } from '../services/service.index';
+
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -12,8 +15,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
-import { LoginGuardGuard } from '../services/service.index';
 
 const pagesRoutes: Routes = [
   {
@@ -56,14 +59,31 @@ const pagesRoutes: Routes = [
         component: ProfileComponent,
         data: { titulo: 'Perfil de usuario' }
       },
+      {
+        path: 'busqueda/:termino',
+        component: BusquedaComponent,
+        data: { titulo: 'Buscador' }
+      },
       // Administración
       {
         path: 'usuarios',
         component: UsuariosComponent,
+        canActivate: [AdminGuard],
+        data: { titulo: 'Administración de usuarios' }
+      },
+      {
+        path: 'usuarios/:termino',
+        component: UsuariosComponent,
+        canActivate: [AdminGuard],
         data: { titulo: 'Administración de usuarios' }
       },
       {
         path: 'hospitales',
+        component: HospitalesComponent,
+        data: { titulo: 'Administración de hospitales' }
+      },
+      {
+        path: 'hospitales/:termino',
         component: HospitalesComponent,
         data: { titulo: 'Administración de hospitales' }
       },

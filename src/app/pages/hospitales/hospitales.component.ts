@@ -3,6 +3,7 @@ import { Hospital } from '../../models/hospital.model';
 import { HospitalService } from '../../services/service.index';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 import { LIMIT_GET } from '../../config/config';
+import { ActivatedRoute } from '@angular/router';
 
 declare var swal;
 
@@ -22,6 +23,7 @@ export class HospitalesComponent implements OnInit {
 
   constructor(
     private _hospital: HospitalService,
+    private route: ActivatedRoute,
     public _modalUpload: ModalUploadService
   ) {}
 
@@ -45,7 +47,19 @@ export class HospitalesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cargarHospitales();
+    this.route.params.subscribe(params => {
+      const termino = params['termino'];
+      if (termino) {
+        const input: any = document.getElementById('inputHospital');
+        if (input) {
+          input.value = termino;
+        }
+        this.buscarHospital(termino);
+      } else {
+        this.cargarHospitales();
+      }
+    });
+
     this._modalUpload.notificacion.subscribe(() => this.cargarHospitales());
   }
 

@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
 
-                <input #input (keyup)="buscarUsuario(input.value)" type="text" class="form-control" placeholder="Buscar usuario...">
+                <input id="inputUsuario" #input (keyup)="buscarUsuario(input.value)" type="text" class="form-control" placeholder="Buscar usuario...">
 
             </div>
         </div>
@@ -60,7 +60,7 @@
                                 <label *ngIf="!usuario.google" class="label label-info">Normal</label>
                             </td>
                             <td>
-                                <button (click)="guardarUsuario(usuario)" type="button" class="btn btn-primary">
+                                <button (click)="guardarUsuario(usuario)" type="button" class="btn btn-primary mr-1">
                                 <i class="fa fa-save"></i>
                               </button>
                                 <button (click)="borrarUsuario(usuario)" type="button" class="btn btn-danger">
