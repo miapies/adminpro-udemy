@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { UsuarioService } from '../services/service.index';
 import { Usuario } from '../models/usuario.model';
+import swal from 'sweetalert';
 
 declare function init_plugins();
 

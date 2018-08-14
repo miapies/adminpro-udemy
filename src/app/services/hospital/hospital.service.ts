@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Hospital } from '../../models/hospital.model';
 import { map } from 'rxjs/operators';
 import { UsuarioService } from '../usuario/usuario.service';
+import swal from 'sweetalert';
 
 @Injectable({
   providedIn: ServiceModule

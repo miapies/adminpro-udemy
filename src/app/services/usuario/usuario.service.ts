@@ -7,6 +7,7 @@ import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 import { throwError } from 'rxjs';
+import swal from 'sweetalert';
 
 @Injectable({
   providedIn: ServiceModule

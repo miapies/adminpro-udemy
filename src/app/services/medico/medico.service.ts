@@ -5,6 +5,7 @@ import { UsuarioService } from '../usuario/usuario.service';
 import { URL_SERVICIOS, LIMIT_GET } from '../../config/config';
 import { map } from 'rxjs/operators';
 import { Medico } from '../../models/medico.model';
+import swal from 'sweetalert';
 
 @Injectable({
   providedIn: ServiceModule
