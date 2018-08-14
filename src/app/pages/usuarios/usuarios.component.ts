@@ -5,7 +5,7 @@ import { ModalUploadService } from '../../components/modal-upload/modal-upload.s
 import { LIMIT_GET } from '../../config/config';
 import { ActivatedRoute } from '@angular/router';
 
-declare var swal: any;
+declare var swal;
 
 @Component({
   selector: 'app-usuarios',

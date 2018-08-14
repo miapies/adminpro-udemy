@@ -6,7 +6,7 @@ import { URL_SERVICIOS, LIMIT_GET } from '../../config/config';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: ServiceModule
@@ -57,6 +57,26 @@ export class UsuarioService {
       this.usuario = null;
       this.menu = [];
     }
+  }
+
+  renuevaToken() {
+    let url = URL_SERVICIOS + '/login/renuevatoken';
+    url += `?token=${this.token}`;
+
+    return this.http.get(url).pipe(
+      map((resp: any) => {
+        this.token = resp.token;
+        localStorage.setItem('token', this.token);
+        console.log('Token renovado');
+
+        return true;
+      }),
+      catchError(err => {
+        this.router.navigate(['/login']);
+        swal('No se pudo renovar el token', err.errors.message, 'error');
+        return throwError(err);
+      })
+    );
   }
 
   estaLogueado() {

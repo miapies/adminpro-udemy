@@ -49,6 +49,7 @@ export class RxjsComponent implements OnInit, OnDestroy {
         // }
       }, 1000);
     }).pipe(
+      retry(2),
       map((resp: any) => resp.valor),
       filter(valor => valor % 2 === 1)
     );

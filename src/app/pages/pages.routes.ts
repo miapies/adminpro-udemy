@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 
 // Guards
-import { LoginGuardGuard, AdminGuard } from '../services/service.index';
+import { AdminGuard, VerificaTokenGuard } from '../services/service.index';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -17,89 +17,89 @@ import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 
-
 const pagesRoutes: Routes = [
+  // {
+  //   path: '',
+  //   component: PagesComponent,
+  //   canActivate: [LoginGuardGuard],
+  //   children: [
   {
-    path: '',
-    component: PagesComponent,
-    canActivate: [LoginGuardGuard],
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-        data: { titulo: 'Dashboard' }
-      },
-      {
-        path: 'progress',
-        component: ProgressComponent,
-        data: { titulo: 'Progress' }
-      },
-      {
-        path: 'graficas1',
-        component: Graficas1Component,
-        data: { titulo: 'Gráficas' }
-      },
-      {
-        path: 'promesas',
-        component: PromesasComponent,
-        data: { titulo: 'Promesas' }
-      },
-      {
-        path: 'rxjs',
-        component: RxjsComponent,
-        data: { titulo: 'RxJs' }
-      },
-      {
-        path: 'account-settings',
-        component: AccountSettingsComponent,
-        data: { titulo: 'Ajustes del Tema' }
-      },
-      {
-        path: 'perfil',
-        component: ProfileComponent,
-        data: { titulo: 'Perfil de usuario' }
-      },
-      {
-        path: 'busqueda/:termino',
-        component: BusquedaComponent,
-        data: { titulo: 'Buscador' }
-      },
-      // Administración
-      {
-        path: 'usuarios',
-        component: UsuariosComponent,
-        canActivate: [AdminGuard],
-        data: { titulo: 'Administración de usuarios' }
-      },
-      {
-        path: 'usuarios/:termino',
-        component: UsuariosComponent,
-        canActivate: [AdminGuard],
-        data: { titulo: 'Administración de usuarios' }
-      },
-      {
-        path: 'hospitales',
-        component: HospitalesComponent,
-        data: { titulo: 'Administración de hospitales' }
-      },
-      {
-        path: 'hospitales/:termino',
-        component: HospitalesComponent,
-        data: { titulo: 'Administración de hospitales' }
-      },
-      {
-        path: 'medicos',
-        component: MedicosComponent,
-        data: { titulo: 'Administración de médicos' }
-      },
-      {
-        path: 'medico/:id',
-        component: MedicoComponent,
-        data: { titulo: 'Actualizar médico' }
-      },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
-    ]
-  }
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [VerificaTokenGuard],
+    data: { titulo: 'Dashboard' }
+  },
+  {
+    path: 'progress',
+    component: ProgressComponent,
+    data: { titulo: 'Progress' }
+  },
+  {
+    path: 'graficas1',
+    component: Graficas1Component,
+    data: { titulo: 'Gráficas' }
+  },
+  {
+    path: 'promesas',
+    component: PromesasComponent,
+    data: { titulo: 'Promesas' }
+  },
+  {
+    path: 'rxjs',
+    component: RxjsComponent,
+    data: { titulo: 'RxJs' }
+  },
+  {
+    path: 'account-settings',
+    component: AccountSettingsComponent,
+    data: { titulo: 'Ajustes del Tema' }
+  },
+  {
+    path: 'perfil',
+    component: ProfileComponent,
+    data: { titulo: 'Perfil de usuario' }
+  },
+  {
+    path: 'busqueda/:termino',
+    component: BusquedaComponent,
+    data: { titulo: 'Buscador' }
+  },
+  // Administración
+  {
+    path: 'usuarios',
+    component: UsuariosComponent,
+    canActivate: [AdminGuard],
+    data: { titulo: 'Administración de usuarios' }
+  },
+  {
+    path: 'usuarios/:termino',
+    component: UsuariosComponent,
+    canActivate: [AdminGuard],
+    data: { titulo: 'Administración de usuarios' }
+  },
+  {
+    path: 'hospitales',
+    component: HospitalesComponent,
+    data: { titulo: 'Administración de hospitales' }
+  },
+  {
+    path: 'hospitales/:termino',
+    component: HospitalesComponent,
+    data: { titulo: 'Administración de hospitales' }
+  },
+  {
+    path: 'medicos',
+    component: MedicosComponent,
+    data: { titulo: 'Administración de médicos' }
+  },
+  {
+    path: 'medico/:id',
+    component: MedicoComponent,
+    data: { titulo: 'Actualizar médico' }
+  },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+  // ]
+  // }
 ];
 
 export const PAGES_ROUTES = RouterModule.forChild(pagesRoutes);
