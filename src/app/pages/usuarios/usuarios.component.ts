@@ -64,6 +64,16 @@ export class UsuariosComponent implements OnInit {
   }
 
   mostrarModal(id: string) {
+    if (id === this._usuario.usuario._id) {
+      swal(
+        'No puede cambiar esta imagen',
+        'Puede cambiarla desde la pantalla del perfil',
+        'error'
+      );
+
+      return;
+    }
+
     this._modalUpload.mostrarModal('usuarios', id);
   }
 

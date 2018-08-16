@@ -10,7 +10,7 @@ import swal from 'sweetalert';
 })
 export class ModalUploadComponent implements OnInit {
   imagenSubir: File;
-  imagenTmp: string;
+  imagenTmp: any;
 
   constructor(
     private _subirArchivo: SubirArchivoService,
@@ -62,7 +62,6 @@ export class ModalUploadComponent implements OnInit {
       )
       .subscribe(
         resp => {
-          // console.log(resp);
           this._modalUpload.notificacion.emit(resp);
           this.cerrarModal();
         },
